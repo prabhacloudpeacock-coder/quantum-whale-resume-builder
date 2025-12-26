@@ -31,7 +31,8 @@ export function usePersistence(initialData: ResumeData[]) {
 
   useEffect(() => {
     fetchAll();
-  }, [fetchAll]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Updates local state immediately (Frontend)
