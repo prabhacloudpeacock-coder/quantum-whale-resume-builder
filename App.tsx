@@ -13,9 +13,8 @@ import {
   FileCheck,
   AlertCircle,
   FolderDown,
-  CloudCheck,
-  CloudOff,
   Cloud,
+  CloudOff,
   X,
   Sparkles,
   Zap,
@@ -32,7 +31,7 @@ import {
   StyleSheet, 
   Image, 
   pdf
-} from 'https://esm.sh/@react-pdf/renderer?external=react,react-dom';
+} from '@react-pdf/renderer';
 import Dashboard from './components/Dashboard';
 import Editor from './components/Editor';
 import Preview from './components/Preview';
@@ -44,7 +43,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 // Quantum Whale High-Fidelity Logo (Fallback)
 const DEFAULT_LOGO_SVG = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxlbnRvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDA2YWFmIi8+CiAgICAgIDxlbnRvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDI4NGYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI1MCIgY3k9IjI1MCIgcj0iMjQwIiBmaWxsPSJ1cmwoI2JnR3JhZCkiLz4KICA8IS0tIEluZmluaXR5IFN5bWJvbCAtLT4KICA8cGF0aCBkPSJNMTYwLDI1MCBjMCwtNjAgODAsLTYwIDgwLDAgczgwLDYwIDgwLDAgcy04MCwtNjAgLTgwLDAgcy04MCw2MCAtODAsMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBiNWMxIiBzdHJva2Utd2lkdGg9IjI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9IjAuOCIvPgogIDwhLS0gV2hhbGUgU2lsaG91ZXR0ZSAtLT4KICA8cGF0aCBkPSJNMzgwLDI1MCBjLTQwLC00MCAtMTIwLC02MCAtMTgwLC0yMCBjLTIwLDEwIC00MCw0MCAtNjAsNDAgYy0yMCwwIC0zMCwtMTUgLTMwLC0xNSBjMCwwIDEwLDEwIDIwLDEwIGMzMCwwIDQwLC0zMCA3MCwtNDAgYzgwLC0zMCAxNTAsMTAgMTgwLDUwIGMzMCw0MCAxMCw4MCAtMjAsOTAgYzQwLDAgNjAsLTMwIDYwLC03MCBaIiBmaWxsPSJ3aGl0ZSIvPgogIDxwYXRoIGQ9Ik0xODAsMjAwIGMtMTAsMCAtMjAsMTAgLTMwLDE1IGMyMCwtMTAgNDAsLTE1IDYwLC01IFoiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjUiLz4KICA8dGV4dCB4PSIyNTAiIHk9IjM4MCIgZm9udC1mYW1pbHk9IidJbnRlcicsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDYiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXdlaWdodD0iOTAwIiBsZXR0ZXItc3BhY2luZz0iLTEiPlF1YW50dW1XaGFsZTwvdGV4dD4KICA8dGV4dCB4PSIyNTAiIHk9IjQyMCIgZm9udC1mYW1pbHk9IidJbnRlcicsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBvcGFjaXR5PSIwLjkiIGZvbnQtd2VpZ2h0PSI1MDAiIGxldHRlci1zcGFjaW5nPSIzIj5JTkZJTklURSBMRUFSTklORzwvdGV4dD4KPC9zdmc+`;
 
-const getPdfStyles = (preset: string = 'bold', alignment: 'left' | 'center' | 'right' = 'left') => {
+const getPdfStyles = (preset = 'bold', alignment: 'left' | 'center' | 'right' = 'left') => {
   const primaryColor = preset === 'bold' ? '#004b8d' : preset === 'creative' ? '#4f46e5' : '#1e293b';
   const accentColor = preset === 'minimalist' ? '#e2e8f0' : preset === 'creative' ? '#818cf8' : '#cbd5e1';
   const justify = alignment === 'center' ? 'center' : alignment === 'right' ? 'flex-end' : 'flex-start';
@@ -615,7 +614,7 @@ const App: React.FC = () => {
            <div className={`flex items-center gap-2 transition-all ${
              status === 'syncing' ? 'text-blue-400' : status === 'synced' ? 'text-emerald-400' : 'text-slate-400'
            }`}>
-             {status === 'fetching' || status === 'syncing' ? <RefreshCw className="w-3 h-3 animate-spin" /> : <CloudCheck className="w-3.5 h-3.5" />}
+             {status === 'fetching' || status === 'syncing' ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Cloud className="w-3.5 h-3.5" />}
              <span>{status === 'fetching' ? 'Fetching...' : status === 'syncing' ? 'Syncing...' : 'System Synced'}</span>
            </div>
         </div>
