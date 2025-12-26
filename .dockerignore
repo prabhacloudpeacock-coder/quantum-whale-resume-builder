@@ -1,1 +1,8 @@
-ž‡^þjºW¬v+-­Ú‘êâ‚z+x:‘êßŠWz{z{–‡”
+node_modules
+dist
+.git
+.gitignore
+Dockerfile
+.dockerignore
+.eslintrc.cjs
+README.md
