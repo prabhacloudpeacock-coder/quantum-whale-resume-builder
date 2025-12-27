@@ -1,10 +1,13 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-let supabase: SupabaseClient | null = null
-
-export function getSupabase(): SupabaseClient | null {
-  return supabase
+export interface ProjectInfo {
+  id: string
+  name: string
+  supabaseUrl: string
+  supabaseAnonKey: string
 }
+
+let supabase: SupabaseClient | null = null
 
 export function isSupabaseConfigured(): boolean {
   return Boolean(
@@ -13,15 +16,20 @@ export function isSupabaseConfigured(): boolean {
   )
 }
 
+export function getSupabase(): SupabaseClient | null {
+  return supabase
+}
+
 export function updateSupabaseConfig(url: string, anonKey: string) {
-  if (!url || !anonKey) return
   supabase = createClient(url, anonKey)
 }
 
-export function getStoredProjectInfo() {
+export function getStoredProjectInfo(): ProjectInfo {
   return {
-    supabaseUrl: import.meta.env.VITE_SUPABASE_URL || '',
-    supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
+    id: 'quantum-whale',
+    name: 'Quantum Whale Resume Builder',
+    supabaseUrl: import.meta.env.VITE_SUPABASE_URL,
+    supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY
   }
 }
 
@@ -32,10 +40,10 @@ export function updateProjectInfo(
   updateSupabaseConfig(supabaseUrl, supabaseAnonKey)
 }
 
-// Auto-init if env vars exist
 if (isSupabaseConfigured()) {
   updateSupabaseConfig(
     import.meta.env.VITE_SUPABASE_URL,
     import.meta.env.VITE_SUPABASE_ANON_KEY
   )
 }
+
