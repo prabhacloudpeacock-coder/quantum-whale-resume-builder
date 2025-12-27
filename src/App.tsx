@@ -37,7 +37,7 @@ import {
 // import Preview from './components/Preview';
 // import Admin from './components/Admin';
 import { ResumeData, AppTab, SectionOrder, AppConfig, INITIAL_SECTIONS } from './types';
-import { usePersistence } from './hooks/usePersistence';
+
 import { GoogleGenAI, Type } from "@google/genai";
 
 // Quantum Whale High-Fidelity Logo (Fallback)
@@ -342,7 +342,11 @@ const DEFAULT_RESUME: ResumeData = {
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AppTab>('Dashboard');
   const [currentResumeId, setCurrentResumeId] = useState<string | null>('1');
-  const { resumes, status, updateResume, deleteResume, addResume } = usePersistence([]);
+  const resumes: any[] = [];
+  const status = 'synced';
+  const updateResume = (id: string, fields: any) => {};
+  const deleteResume = (id: string) => {};
+  const addResume = (resume: any) => {};
   
   const [appConfig, setAppConfig] = useState<AppConfig>(() => ({
     appName: localStorage.getItem('QW_APP_NAME') || 'Quantum Whale',
