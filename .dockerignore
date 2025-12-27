@@ -6,3 +6,11 @@ Dockerfile
 .dockerignore
 .eslintrc.cjs
 README.md
+.docker-compose.yml
+*.log
+.vscode
+.env.local
+.env
+npm-debug.log
+*.map
+coverage

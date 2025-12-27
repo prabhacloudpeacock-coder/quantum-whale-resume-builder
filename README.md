@@ -54,15 +54,26 @@ If you need to wipe the previous history and start fresh on your new repository:
 
 ## 🚢 Deployment (Coolify)
 
-This project is optimized for deployment on **Coolify** via the included `Dockerfile`.
+This project is optimized for deployment on **Coolify** via the included `Dockerfile` and `nginx.conf`.
 
 1. **Connect Repository**: In Coolify, create a new Application and point it to your GitHub repo.
-2. **Auto-Detection**: Coolify will automatically detect the `Dockerfile` and `nginx.conf`.
-3. **Environment Variables**:
-   - Navigate to the **Variables** tab in Coolify.
-   - Add `API_KEY` (Your Google Gemini API Key).
-   - **CRITICAL**: Check the **"Build Variable"** box. This ensures the key is baked into the JS bundle during the Docker build stage.
-4. **Deploy**: Click **Deploy**.
+2. **Auto-Detection**: Coolify will automatically detect the `Dockerfile` and `nginx.conf` and build the Docker image.
+3. **Build / Runtime Variables**:
+   - In Coolify, open the **Variables** (environment) tab and add the values you need.
+   - **Important build-time vars** (mark these as **Build Variable** so they are available during the Vite build step):
+     - `VITE_SUPABASE_URL` (optional, your Supabase URL)
+     - `VITE_SUPABASE_ANON_KEY` (optional, your Supabase anon key)
+     - `VITE_GOOGLE_GENAI_API_KEY` (or `API_KEY` if you mapped it in code)
+   - If your app requires secrets at runtime, add them as normal environment variables.
+4. **Port & Health Check**:
+   - The container serves on port `80`. Coolify will detect and expose this.
+   - A lightweight health endpoint is available at `/healthz`.
+5. **Deploy**: Click **Deploy** and monitor the build logs. If you need to re-deploy with updated build variables, re-deploy the app so Vite can bake them into the static bundle.
+
+Notes:
+- Vite embeds `import.meta.env` values at build time; to change those values you must rebuild the image (set the values as Build Variables in Coolify).
+- For runtime-only secrets you want to keep out of the bundle, consider implementing a simple runtime config fetch or server proxy (not included by default).
+
 
 ## 📄 License
 

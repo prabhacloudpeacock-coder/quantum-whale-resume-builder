@@ -342,12 +342,9 @@ const DEFAULT_RESUME: ResumeData = {
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AppTab>('Dashboard');
   const [currentResumeId, setCurrentResumeId] = useState<string | null>('1');
-  const resumes: any[] = [];
-  const status = 'synced';
-  const updateResume = (id: string, fields: any) => {};
-  const deleteResume = (id: string) => {};
-  const addResume = (resume: any) => {};
-  
+
+  const { resumes, status, updateResume, deleteResume, addResume } = usePersistence([DEFAULT_RESUME]);
+
   const [appConfig, setAppConfig] = useState<AppConfig>(() => ({
     appName: localStorage.getItem('QW_APP_NAME') || 'Quantum Whale',
     appLogo: localStorage.getItem('QW_APP_LOGO') || DEFAULT_LOGO_SVG,
