@@ -7,8 +7,20 @@
     "jsx": "react-jsx",
     "strict": false,
     "skipLibCheck": true,
-    "noEmit": true,
-    "types": ["vite/client"]
-  },
-  "include": ["src"]
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
 }
